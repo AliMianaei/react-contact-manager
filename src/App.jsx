@@ -1,7 +1,8 @@
 import { useState } from 'react';
+
+import {Contacts, Navbar} from "./components";
+
 import './App.css';
-import Navbar from './components/Navbar';
-import Contacts from './components/contact/Contacts';
 
 const contactsArray = [
   {
@@ -33,7 +34,7 @@ const contactsArray = [
 const App = () => {
 
   const [loading, setLoading] = useState(false);
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(contactsArray);
 
   return (
     <div className="App">
