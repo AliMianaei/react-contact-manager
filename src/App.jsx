@@ -32,12 +32,13 @@ const contactsArray = [
 
 const App = () => {
 
+  const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState([]);
 
   return (
     <div className="App">
       <Navbar />
-      <Contacts contacts={contacts} />
+      <Contacts contacts={contacts} loading={loading} />
     </div>
   );
 }
