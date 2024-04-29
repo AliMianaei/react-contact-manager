@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import {Contacts, Navbar} from "./components";
+import {AddContact, Contacts, EditContact, Navbar, ViewContact} from "./components";
 
 import './App.css';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 const contactsArray = [
   {
@@ -39,7 +40,14 @@ const App = () => {
   return (
     <div className="App">
       <Navbar />
-      <Contacts contacts={contacts} loading={loading} />
+      <Routes>
+        <Route path='/' element={<Navigate to='/contacts' />} />
+        <Route path='/contacts' element={<Contacts contacts={contacts} loading={loading} />} />
+        <Route path='/contacts/add' element={<AddContact />} />
+        <Route path='/contacts/edit/:contactId' element={<EditContact />} />
+        <Route path='/contacts/:contactId' element={<ViewContact />} />
+      </Routes>
+
     </div>
   );
 }
