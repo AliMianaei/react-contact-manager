@@ -18,17 +18,21 @@ const Contact = ({contact}) => {
               <ul className="list-group p-0">
                 <li className="list-group-item list-group-item-dark">
                   <span>نام و نام خانوادگی: </span>
-                  <span className="fw-bold">{contact.name}</span>
+                  <span className="fw-bold">{contact.fullname}</span>
                 </li>
 
                 <li className="list-group-item list-group-item-dark">
                   <span>شماره تلفن: </span>
-                  <span className="fw-bold">{contact.phone}</span>
+                  <span className="fw-bold">{contact.mobile}</span>
                 </li>
 
                 <li className="list-group-item list-group-item-dark">
                   <span>ایمیل: </span>
                   <span className="fw-bold">{contact.email}</span>
+                </li>
+                <li className="list-group-item list-group-item-dark">
+                  <span>شغل: </span>
+                  <span className="fw-bold">{contact.job}</span>
                 </li>
               </ul>
             </div>

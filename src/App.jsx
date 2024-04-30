@@ -1,41 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
 import {AddContact, Contacts, EditContact, Navbar, ViewContact} from "./components";
 
 import './App.css';
-import { Navigate, Route, Routes } from 'react-router-dom';
-
-const contactsArray = [
-  {
-    id: 1,
-    name: "علی میانایی",
-    email: "ali.mianaei@gmail.com",
-    phone: "۰۹۱۲۰۱۵۲۱۵۳",
-  },
-  {
-    id: 2,
-    name: "مریم کنعانی",
-    email: "maryam.kanani@gmail.com",
-    phone: "۰۹۱۲۱۱۲۹۹۸۸",
-  },
-  {
-    id: 3,
-    name: "سینا میانایی",
-    email: "sina.mianaei@gmail.com",
-    phone: "۰۹۳۵۵۵۸۵۸۵۸",
-  },
-  {
-    id: 4,
-    name: "نجمه میانایی",
-    email: "najmeh.mianaei@gmail.com",
-    phone: "۰۹۱۲۹۹۸۸۱۱۱",
-  },
-]
 
 const App = () => {
 
   const [loading, setLoading] = useState(false);
-  const [contacts, setContacts] = useState(contactsArray);
+  const [contacts, setContacts] = useState([]);
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const { data: contactsData } = await axios.get('http://localhost:9000/contacts');
+        const { data: groupsData } = await axios.get('http://localhost:9000/groups');
+
+        setContacts(contactsData);
+        setGroups(groupsData);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
