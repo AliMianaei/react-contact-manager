@@ -3,6 +3,7 @@ import Contact from "./Contact";
 
 // import NotFound from "../../assets/no-found.gif";
 import Spinner from "../Spinner";
+import { Link } from "react-router-dom";
 
 const Contacts = ({contacts, loading}) => {
   // const emptyArray = Array.from({ length: 15 }).fill(null);
@@ -13,10 +14,10 @@ const Contacts = ({contacts, loading}) => {
           <div className="row">
             <div className="col text-end">
               <p className="h3 mb-0">
-                <button className="btn" style={{backgroundColor: PINK}}>
+                <Link to="/contacts/add" className="btn" style={{backgroundColor: PINK}}>
                   <span>ساخت مخاطب جدید</span>
                   <i className="fa fa-plus-circle me-2" />
-                </button>
+                </Link>
               </p>
             </div>
           </div>
