@@ -1,15 +1,6 @@
 {
   "contacts": [
     {
-      "id": "e82e",
-      "fullname": "علی اصغر جعفری میانایی",
-      "photo": "",
-      "mobile": "09120152153",
-      "email": "ali.mianaei@gmail.com",
-      "job": "برنامه نویس",
-      "group": "1"
-    },
-    {
       "id": "b146",
       "fullname": "مریم کنعانی",
       "photo": "",
@@ -24,7 +15,7 @@
       "photo": "",
       "mobile": "09120121212",
       "email": "najmeh.mianaei@gmail.com",
-      "job": "معمار",
+      "job": "معمار ارشد",
       "group": "1"
     },
     {
@@ -52,6 +43,15 @@
       "mobile": "09112223344",
       "email": "sareh.salehi@gmail.com",
       "job": "خانه دار",
+      "group": "1"
+    },
+    {
+      "id": "8acb",
+      "fullname": "علی میانایی",
+      "photo": "",
+      "mobile": "09120152153",
+      "email": "ali.mianaei@gmail.com",
+      "job": "برنامه نویس ارشد",
       "group": "1"
     }
   ],

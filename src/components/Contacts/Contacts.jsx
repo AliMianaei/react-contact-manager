@@ -5,7 +5,7 @@ import Contact from "./Contact";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 
-const Contacts = ({contacts, loading}) => {
+const Contacts = ({contacts, confirmDelete, loading}) => {
   // const emptyArray = Array.from({ length: 15 }).fill(null);
   return (
     <>
@@ -27,7 +27,7 @@ const Contacts = ({contacts, loading}) => {
         <section className="container">
           <div className="row">
             {contacts.length > 0 ? contacts.map((contact) => (
-              <Contact key={contact.id} contact={contact} />
+              <Contact key={contact.id} contact={contact} confirmDelete={confirmDelete} />
             )) :
             (
               <div className="text-center py-5">

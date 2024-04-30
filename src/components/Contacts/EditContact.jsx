@@ -5,7 +5,7 @@ import { getAllGroups, getContact, updateContact } from "../../services/contactS
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 import Spinner from "../Spinner";
 
-const EditContact = () => {
+const EditContact = ({ forceRender, setForceRender }) => {
   const { contactId } = useParams();
   const navigate = useNavigate();
 
@@ -38,6 +38,7 @@ const EditContact = () => {
       setState(prevState => ({...prevState, loading: true}));
       const { data } = await updateContact(state.contact, contactId);
       if (data) {
+        setForceRender(!forceRender);
         navigate("/contacts");
       }
     } catch (error) {

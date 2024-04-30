@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
