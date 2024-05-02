@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react";
-import { CURRENTLINE, CYAN, PURPLE } from "../../helpers/colors";
-import Spinner from "../Spinner";
-import { getContact, getGroup } from "../../services/contactService";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
+import { ContactContext } from "../../context/contactContext";
+import { getContact, getGroup } from "../../services/contactService";
+
+import Spinner from "../Spinner";
+import { CURRENTLINE, CYAN, PURPLE } from "../../helpers/colors";
 
 const ViewContact = () => {
 
   const { contactId } = useParams();
 
-  const [loading, setLoading] = useState(false);
   const [contact, setContact] = useState({});
   const [group, setGroup] = useState({});
+
+  const { loading, setLoading } = useContext(ContactContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +36,7 @@ const ViewContact = () => {
     }
 
     fetchData();
-  }, [contactId]);
+  }, []);
 
   return (
     <>

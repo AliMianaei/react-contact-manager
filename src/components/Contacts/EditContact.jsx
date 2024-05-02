@@ -1,77 +1,73 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { getAllGroups, getContact, updateContact } from "../../services/contactService";
+import { getContact, updateContact } from "../../services/contactService";
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 import Spinner from "../Spinner";
+import { ContactContext } from "../../context/contactContext";
 
-const EditContact = ({ forceRender, setForceRender }) => {
+const EditContact = () => {
   const { contactId } = useParams();
   const navigate = useNavigate();
 
-  const [state, setState] = useState({
-    loading: false,
-    contact: {
-      fullname: "",
-      photo: "",
-      mobile: "",
-      email: "",
-      job: "",
-      group: "",
-    },
-    groups: [],
-  });
+  const [contact, setContact] = useState({});
+
+  const { loading, setLoading, groups, contacts, setContacts, setFilteredContacts } = useContext(ContactContext);
 
   const setContactInfo = (event) => {
-    setState(prevState => ({
-      ...prevState,
-      contact: {
-        ...prevState.contact,
-        [event.target.name]: event.target.value,
-      }
+    setContact(prevContact => ({
+      ...prevContact,
+      [event.target.name]: event.target.value,
     }));
   }
 
   const submitForm = async (event) => {
     event.preventDefault();
     try {
-      setState(prevState => ({...prevState, loading: true}));
-      const { data } = await updateContact(state.contact, contactId);
-      if (data) {
-        setForceRender(!forceRender);
+      setLoading(true);
+      const { data, status } = await updateContact(contact, contactId);
+
+      /**
+       * NOTE
+       * 1- Rerender -> forceRender, setForceRender(true)
+       * 2- send request to server 
+       * 3- update local state -> setContacts() -> update Contacts array with new data which is returned by api after successfull PUT data (best way)
+       * 4- update local state before server request
+       */
+
+      if (status === 200) {
+        const allContacts = [...contacts];
+        const contactIndex = allContacts.findIndex(contact => contact.id === contactId);
+        if (contactIndex !== -1) {
+          allContacts[contactIndex] = data;
+          setContacts(allContacts);
+          setFilteredContacts(allContacts);
+        }
         navigate("/contacts");
       }
     } catch (error) {
       console.log(error.message);
     } finally {
-      setState(prevState => ({...prevState, loading: false}));
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setState(prevState => ({...prevState, loading: true}))
+        setLoading(true);
         const { data: contactData } = await getContact(contactId);
-        const { data: groupsData } = await getAllGroups();
-
-        setState(prevState => ({
-          ...prevState,
-          contact: contactData,
-          groups: groupsData
-        }));
-        
+        setContact(contactData);
       } catch (error) {
         console.log(error.message);
       } finally {
-        setState(prevState => ({ ...prevState, loading: false }));
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, [contactId]);
-
-  const { loading, contact, groups } = state;
+  }, []);
 
   return (
     <>

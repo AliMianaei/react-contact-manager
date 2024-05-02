@@ -1,15 +1,6 @@
 {
   "contacts": [
     {
-      "id": "b146",
-      "fullname": "مریم کنعانی",
-      "photo": "",
-      "mobile": "09121212121",
-      "email": "maryam.kanani@gmail.com",
-      "job": "برنامه نویس",
-      "group": "1"
-    },
-    {
       "id": "58f0",
       "fullname": "نجمه میانایی",
       "photo": "",
@@ -21,7 +12,7 @@
     {
       "fullname": "سینا میانایی",
       "photo": "",
-      "mobile": "09111112222",
+      "mobile": "091111122233",
       "email": "sina.mianaei@gmail.com",
       "job": "روانشناس",
       "group": "1",
@@ -46,11 +37,10 @@
       "group": "1"
     },
     {
-      "id": "8acb",
-      "fullname": "علی میانایی",
-      "photo": "",
-      "mobile": "09120152153",
-      "email": "ali.mianaei@gmail.com",
+      "id": "a11d",
+      "fullname": "Maryam Kanani",
+      "mobile": "3715889998",
+      "email": "maryam.kanaani70@gmail.com",
       "job": "برنامه نویس ارشد",
       "group": "1"
     }

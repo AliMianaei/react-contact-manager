@@ -1,12 +1,14 @@
-import { ORANGE, PINK } from "../../helpers/colors";
-import Contact from "./Contact";
-
-// import NotFound from "../../assets/no-found.gif";
-import Spinner from "../Spinner";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-const Contacts = ({contacts, confirmDelete, loading}) => {
-  // const emptyArray = Array.from({ length: 15 }).fill(null);
+import { ContactContext } from "../../context/contactContext";
+import Contact from "./Contact";
+import Spinner from "../Spinner";
+import { ORANGE, PINK } from "../../helpers/colors";
+
+const Contacts = () => {
+  const { loading, filteredContacts, deleteContact } = useContext(ContactContext);
+
   return (
     <>
       <section className="container my-2">
@@ -26,8 +28,8 @@ const Contacts = ({contacts, confirmDelete, loading}) => {
       {loading ? <Spinner /> : (
         <section className="container">
           <div className="row">
-            {contacts.length > 0 ? contacts.map((contact) => (
-              <Contact key={contact.id} contact={contact} confirmDelete={confirmDelete} />
+            {filteredContacts.length > 0 ? filteredContacts.map((contact) => (
+              <Contact key={contact.id} contact={contact} deleteContact={() => deleteContact(contact.id, contact.fullname)} />
             )) :
             (
               <div className="text-center py-5">
