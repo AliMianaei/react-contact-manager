@@ -73,15 +73,17 @@ const AddContact = () => {
                     <div className="mb-2">
                       <input
                         id="fullname"
-                        name="fullname"
                         type="text"
                         className="form-control"
                         placeholder="نام و نام خانوادگی"
-                        // value={contact.fullname}
-                        // onChange={onContactChange}
-                        value={formik.values.fullname}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        
+                        // // value={contact.fullname}
+                        // // onChange={onContactChange}
+                        // name="fullname"
+                        // value={formik.values.fullname}
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('fullname')}
                       />
                       {formik.touched.fullname && formik.errors.fullname && <p className="my-1 text-danger text-end">{formik.errors.fullname}</p>}
                     </div>
@@ -89,16 +91,17 @@ const AddContact = () => {
                     <div className="mb-2">
                       <input
                         id="photo"
-                        name="photo"
                         type="text"
                         className="form-control"
                         placeholder="آدرس تصویر"
-                        required={false}
-                        // value={contact.photo}
-                        // onChange={onContactChange}
-                        value={formik.values.photo}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+
+                        // // value={contact.photo}
+                        // // onChange={onContactChange}
+                        // name="photo"
+                        // value={formik.values.photo}
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('photo')}
                       />
                       {formik.touched.photo && formik.errors.photo && <p className="my-1 text-danger text-end">{formik.errors.photo}</p>}
                     </div>
@@ -106,15 +109,17 @@ const AddContact = () => {
                     <div className="mb-2">
                       <input
                         id="mobile"
-                        name="mobile"
                         type="number"
                         className="form-control"
                         placeholder="شماره موبایل"
-                        // value={contact.mobile}
-                        // onChange={onContactChange}
-                        value={formik.values.mobile}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+
+                        // // value={contact.mobile}
+                        // // onChange={onContactChange}
+                        // name="mobile"
+                        // value={formik.values.mobile}
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('mobile')}
                       />
                       {formik.touched.mobile && formik.errors.mobile && <p className="my-1 text-danger text-end">{formik.errors.mobile}</p>}
                     </div>
@@ -122,15 +127,17 @@ const AddContact = () => {
                     <div className="mb-2">
                       <input
                         id="email"
-                        name="email"
                         type="email"
                         className="form-control"
                         placeholder="آدرس ایمیل"
-                        // value={contact.email}
-                        // onChange={onContactChange}
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+
+                        // // value={contact.email}
+                        // // onChange={onContactChange}
+                        // name="email"
+                        // value={formik.values.email}
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('email')}
                       />
                       {formik.touched.email && formik.errors.email && <p className="my-1 text-danger text-end">{formik.errors.email}</p>}
                     </div>
@@ -138,15 +145,17 @@ const AddContact = () => {
                     <div className="mb-2">
                       <input
                         id="job"
-                        name="job"
                         type="text"
                         className="form-control"
                         placeholder="شغل"
-                        // value={contact.job}
-                        // onChange={onContactChange}
-                        value={formik.values.job}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+
+                        // // value={contact.job}
+                        // // onChange={onContactChange}
+                        // name="job"
+                        // value={formik.values.job}
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('job')}
                       />
                       {formik.touched.job && formik.errors.job && <p className="my-1 text-danger text-end">{formik.errors.job}</p>}
                     </div>
@@ -154,13 +163,15 @@ const AddContact = () => {
                     <div className="mb-2">
                       <select
                         id="group"
-                        name="group"
                         className="form-control"
-                        // value={contact.group}
-                        // onChange={onContactChange}
-                        value={formik.values.group}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+
+                        // // value={contact.group}
+                        // // onChange={onContactChange}
+                        // name="group"
+                        // value={formik.values.group}
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('group')}
                       >
                         <option value="">انتخاب گروه</option>
                         {groups.length > 0 && groups.map(group => (

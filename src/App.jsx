@@ -11,6 +11,7 @@ import {AddContact, Contacts, EditContact, Navbar, ViewContact} from "./componen
 import { COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW } from './helpers/colors';
 
 import './App.css';
+import AddContactFormik from './components/Contacts/AddContactFormik';
 
 const App = () => {
   const navigate = useNavigate();
@@ -164,7 +165,8 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Navigate to='/contacts' />} />
           <Route path='/contacts' element={<Contacts />} />
-          <Route path='/contacts/add' element={<AddContact />} />
+          {/* <Route path='/contacts/add' element={<AddContact />} /> */}
+          <Route path='/contacts/add' element={<AddContactFormik />} />
           <Route path='/contacts/edit/:contactId' element={<EditContact />} />
           <Route path='/contacts/:contactId' element={<ViewContact />} />
         </Routes>
