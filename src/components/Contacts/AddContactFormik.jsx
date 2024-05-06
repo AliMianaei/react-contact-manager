@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
@@ -10,6 +10,9 @@ import { COMMENT, GREEN, PURPLE } from "../../helpers/colors";
 const AddContactFormik = () => {
   const { loading, groups, createContact } = useContext(ContactContext);
 
+  useEffect(() => {
+    console.log('Add uesEffect run')
+  }, [])
   return (
     <>
       {loading ? (
@@ -96,7 +99,7 @@ const AddContactFormik = () => {
                       </div>
 
                       <div className="mb-2">
-                        <input
+                        <Field
                           name="job"
                           type="text"
                           className="form-control"
@@ -134,8 +137,6 @@ const AddContactFormik = () => {
                       </div>
 
                     </Form>
-                    {/* {(formik) => (
-                    )} */}
                   </Formik>
                 </div>
               </div>

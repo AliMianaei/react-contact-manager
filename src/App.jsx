@@ -7,11 +7,10 @@ import { ContactContext } from './context/contactContext';
 import { createContact, deleteContact, getAllContacts, getAllGroups } from './services/contactService';
 // import { contactShema } from './validations/contactValidation';
 
-import {AddContact, Contacts, EditContact, Navbar, ViewContact} from "./components";
+import {AddContact, AddContactFormik, Contacts, EditContact, EditContactFormik, Navbar, ViewContact} from "./components";
 import { COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW } from './helpers/colors';
 
 import './App.css';
-import AddContactFormik from './components/Contacts/AddContactFormik';
 
 const App = () => {
   const navigate = useNavigate();
@@ -123,6 +122,7 @@ const App = () => {
   }, 1000);
 
   useEffect(() => {
+    console.log('App uesEffect run')
     const fetchData = async () => {
       try {
         setLoading(true);        
@@ -167,7 +167,8 @@ const App = () => {
           <Route path='/contacts' element={<Contacts />} />
           {/* <Route path='/contacts/add' element={<AddContact />} /> */}
           <Route path='/contacts/add' element={<AddContactFormik />} />
-          <Route path='/contacts/edit/:contactId' element={<EditContact />} />
+          {/* <Route path='/contacts/edit/:contactId' element={<EditContact />} /> */}
+          <Route path='/contacts/edit/:contactId' element={<EditContactFormik />} />
           <Route path='/contacts/:contactId' element={<ViewContact />} />
         </Routes>
       </div>
