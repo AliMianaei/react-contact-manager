@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Field, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 
 import { ContactContext } from "../../context/contactContext";
 import { contactShema } from '../../validations/contactValidation'
@@ -53,118 +53,89 @@ const AddContactFormik = () => {
                       }
                     }
                   >
-                    {(formik) => (
-                      <form onSubmit={formik.handleSubmit}>
-                        <div className="mb-2">
-                          <input
-                            id="fullname"
-                            type="text"
-                            className="form-control"
-                            placeholder="نام و نام خانوادگی"
-                            {...formik.getFieldProps('fullname')}
-                          />
-                          {formik.touched.fullname && formik.errors.fullname && <p className="my-1 text-danger text-end">{formik.errors.fullname}</p>}
-                        </div>
+                    <Form>
+                      <div className="mb-2">
+                        <Field
+                          name="fullname"
+                          type="text"
+                          className="form-control"
+                          placeholder="نام و نام خانوادگی"
+                        />
+                        <ErrorMessage name="fullname" render={msg => <p className="my-1 text-danger text-end">{msg}</p>} />
+                        {/* {formik.touched.fullname && formik.errors.fullname && <p className="my-1 text-danger text-end">{formik.errors.fullname}</p>} */}
+                      </div>
 
-                        <div className="mb-2">
-                          <input
-                            id="photo"
-                            type="text"
-                            className="form-control"
-                            placeholder="آدرس تصویر"
+                      <div className="mb-2">
+                        <Field
+                          name="photo"
+                          type="text"
+                          className="form-control"
+                          placeholder="آدرس تصویر"
+                        />
+                        <ErrorMessage name="photo" render={msg => <p className="my-1 text-danger text-end">{msg}</p>} />
+                      </div>
 
-                            // name="photo"
-                            // value={formik.values.photo}
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            {...formik.getFieldProps('photo')}
-                          />
-                          {formik.touched.photo && formik.errors.photo && <p className="my-1 text-danger text-end">{formik.errors.photo}</p>}
-                        </div>
+                      <div className="mb-2">
+                        <Field
+                          name="mobile"
+                          type="number"
+                          className="form-control"
+                          placeholder="شماره موبایل"
+                        />
+                        <ErrorMessage name="mobile" render={msg => <p className="my-1 text-danger text-end">{msg}</p>} />
+                      </div>
 
-                        <div className="mb-2">
-                          <input
-                            id="mobile"
-                            type="number"
-                            className="form-control"
-                            placeholder="شماره موبایل"
+                      <div className="mb-2">
+                        <Field
+                          name="email"
+                          type="email"
+                          className="form-control"
+                          placeholder="آدرس ایمیل"
+                        />
+                        <ErrorMessage name="email" render={msg => <p className="my-1 text-danger text-end">{msg}</p>} />
+                      </div>
 
-                            // name="mobile"
-                            // value={formik.values.mobile}
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            {...formik.getFieldProps('mobile')}
-                          />
-                          {formik.touched.mobile && formik.errors.mobile && <p className="my-1 text-danger text-end">{formik.errors.mobile}</p>}
-                        </div>
+                      <div className="mb-2">
+                        <input
+                          name="job"
+                          type="text"
+                          className="form-control"
+                          placeholder="شغل"
+                        />
+                        <ErrorMessage name="job" render={msg => <p className="my-1 text-danger text-end">{msg}</p>} />
+                      </div>
+                      
+                      <div className="mb-2">
+                        <Field
+                          name="group"
+                          as="select"
+                          className="form-control"
+                        >
+                          <option value="">انتخاب گروه</option>
+                          {groups.length > 0 && groups.map(group => (
+                            <option key={group.id} value={group.id}>{group.name}</option>
+                          ))}
+                        </Field>
+                        <ErrorMessage name="group" render={msg => <p className="my-1 text-danger text-end">{msg}</p>} />
+                      </div>
 
-                        <div className="mb-2">
-                          <input
-                            id="email"
-                            type="email"
-                            className="form-control"
-                            placeholder="آدرس ایمیل"
-                            
-                            // name="email"
-                            // value={formik.values.email}
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            {...formik.getFieldProps('email')}
-                          />
-                          {formik.touched.email && formik.errors.email && <p className="my-1 text-danger text-end">{formik.errors.email}</p>}
-                        </div>
+                      <div className="mx-2">
+                        <input 
+                          type="submit"
+                          className="btn"
+                          style={{backgroundColor: PURPLE}}
+                          value="ساخت مخاطب"
+                        />
+                        <Link
+                          to="/contacts"
+                          className="btn mx-2"
+                          style={{backgroundColor: COMMENT}}  
+                        >انصراف</Link>
+                      </div>
 
-                        <div className="mb-2">
-                          <input
-                            id="job"
-                            type="text"
-                            className="form-control"
-                            placeholder="شغل"
-                            
-                            // name="job"
-                            // value={formik.values.job}
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            {...formik.getFieldProps('job')}
-                          />
-                          {formik.touched.job && formik.errors.job && <p className="my-1 text-danger text-end">{formik.errors.job}</p>}
-                        </div>
-                        
-                        <div className="mb-2">
-                          <select
-                            id="group"
-                            className="form-control"
-
-                            // name="group"
-                            // value={formik.values.group}
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            {...formik.getFieldProps('group')}
-                          >
-                            <option value="">انتخاب گروه</option>
-                            {groups.length > 0 && groups.map(group => (
-                              <option key={group.id} value={group.id}>{group.name}</option>
-                            ))}
-                          </select>
-                          {formik.touched.group && formik.errors.group && <p className="my-1 text-danger text-end">{formik.errors.group}</p>}
-                        </div>
-
-                        <div className="mx-2">
-                          <input 
-                            type="submit"
-                            className="btn"
-                            style={{backgroundColor: PURPLE}}
-                            value="ساخت مخاطب"
-                          />
-                          <Link
-                            to="/contacts"
-                            className="btn mx-2"
-                            style={{backgroundColor: COMMENT}}  
-                          >انصراف</Link>
-                        </div>
-
-                      </form>
-                    )}
+                    </Form>
+                    {/* {(formik) => (
+                    )} */}
                   </Formik>
                 </div>
               </div>
