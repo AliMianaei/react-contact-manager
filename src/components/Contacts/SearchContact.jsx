@@ -4,7 +4,7 @@ import { ContactContext } from "../../context/contactContext";
 import { PURPLE } from "../../helpers/colors";
 
 const SearchContact = () => {
-  const {contactQuery, contactSearch} = useContext(ContactContext);
+  const {contactSearch, /* contactQuery */} = useContext(ContactContext);
 
   return (
     <div className="input-group w-75" dir="ltr">
@@ -18,8 +18,8 @@ const SearchContact = () => {
         placeholder="جستجوی مخاطب"
         aria-label="Search"
         aria-describedby="basic-addon1"
-        value={contactQuery.text}
-        onChange={contactSearch}
+        // value={contactQuery.text}
+        onChange={e => contactSearch(e.target.value)}
       />
     </div>
   )

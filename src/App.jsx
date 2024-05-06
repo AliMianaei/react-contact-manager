@@ -17,7 +17,7 @@ const App = () => {
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [groups, setGroups] = useState([]);
   const [contact, setContact] = useState({});
-  const [contactQuery, setContactQuery] = useState({text: ""});
+  // const [contactQuery, setContactQuery] = useState({text: ""});
 
   const onContactChange = (event) => {
     setContact(prevState => ({...prevState, [event.target.name]: event.target.value}))
@@ -112,10 +112,21 @@ const App = () => {
     }
   }
 
-  const contactSearch = (event) => {
-    setContactQuery(prevState => ({...prevState, text: event.target.value}));
-    const filteredAllContacts = contacts.filter(contact => contact.fullname.toLowerCase().includes(event.target.value.toLowerCase()));
-    setFilteredContacts(filteredAllContacts);
+  // const contactSearch = (event) => { 
+  //   setContactQuery(prevState => ({...prevState, text: event.target.value}));
+  //   const filteredAllContacts = contacts.filter(contact => contact.fullname.toLowerCase().includes(event.target.value.toLowerCase()));
+  //   setFilteredContacts(filteredAllContacts);
+  // }
+
+  let filterTimeOut;
+  const contactSearch = (query) => {
+    clearTimeout(filterTimeOut);  // always clear previous timeout when we insert new character in input and don't allow invoking filter based on previous character
+
+    if(!query) return setFilteredContacts([...contacts]); // if the query is empty, it is not neccessary to filter the contacts and create new array by invoking filter method
+
+    filterTimeOut = setTimeout(() => {
+      setFilteredContacts(contacts.filter(contact => contact.fullname.toLowerCase().includes(query.toLowerCase())))
+    }, 1000);
   }
 
   useEffect(() => {
@@ -148,7 +159,7 @@ const App = () => {
       filteredContacts,
       setFilteredContacts,
       groups,
-      contactQuery,
+      // contactQuery,
       contactSearch,
       onContactChange,
       createContact: createContactForm,
