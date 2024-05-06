@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { ContactContext } from './context/contactContext';
 import { createContact, deleteContact, getAllContacts, getAllGroups } from './services/contactService';
-import { contactShema } from './validations/contactValidation';
+// import { contactShema } from './validations/contactValidation';
 
 import {AddContact, Contacts, EditContact, Navbar, ViewContact} from "./components";
 import { COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW } from './helpers/colors';
@@ -21,31 +21,32 @@ const App = () => {
   const [groups, setGroups] = useState([]);
   const [contact, setContact] = useState({});
   // const [contactQuery, setContactQuery] = useState({text: ""});
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   const onContactChange = (event) => {
     setContact(prevState => ({...prevState, [event.target.name]: event.target.value}))
   }
 
-  const createContactForm = async (event) => {
-    event.preventDefault();
+  const createContactForm = async (values) => {
+    // event.preventDefault();
     try {
       setLoading(true);
-      await contactShema.validate(contact, {abortEarly: false});
-      const { data, status } = await createContact(contact);
+      // await contactShema.validate(contact, {abortEarly: false});
+      // const { data, status } = await createContact(contact);
+      const { data, status } = await createContact(values);
 
       if (status === 201) {
         setContacts(prevContacts => ([...prevContacts, data]));
         setFilteredContacts(prevFilteredContacts => ([...prevFilteredContacts, data]));
-        setContact({});
-        setErrors([]);
+        // setContact({});
+        // // setErrors([]);
         navigate("/contacts");
       }
     } catch (error) {
-      console.log(error);
-      console.log(error.message);
-      console.log(error.inner);
-      setErrors(error.inner);
+      console.log({error});
+      console.log({errorMessage: error.message});
+      console.log({errorInner: error.inner});
+      // setErrors(error.inner);
     } finally {
       setLoading(false);
     }
@@ -156,7 +157,7 @@ const App = () => {
       createContact: createContactForm,
       deleteContact: confirmDelete,
 
-      errors,
+      // errors,
     }}>
       <div className="App">
         <Navbar />

@@ -18,5 +18,5 @@ export const ContactContext = createContext({
   deleteContact: () => {},
   contactSearch: () => {},
 
-  errors: [],
+  // errors: [],
 });
