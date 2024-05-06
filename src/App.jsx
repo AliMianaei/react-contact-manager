@@ -5,10 +5,12 @@ import _ from 'lodash';
 
 import { ContactContext } from './context/contactContext';
 import { createContact, deleteContact, getAllContacts, getAllGroups } from './services/contactService';
+import { contactShema } from './validations/contactValidation';
+
 import {AddContact, Contacts, EditContact, Navbar, ViewContact} from "./components";
+import { COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW } from './helpers/colors';
 
 import './App.css';
-import { COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW } from './helpers/colors';
 
 const App = () => {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const App = () => {
   const [groups, setGroups] = useState([]);
   const [contact, setContact] = useState({});
   // const [contactQuery, setContactQuery] = useState({text: ""});
+  const [errors, setErrors] = useState([]);
 
   const onContactChange = (event) => {
     setContact(prevState => ({...prevState, [event.target.name]: event.target.value}))
@@ -28,22 +31,21 @@ const App = () => {
     event.preventDefault();
     try {
       setLoading(true);
+      await contactShema.validate(contact, {abortEarly: false});
       const { data, status } = await createContact(contact);
-
-      /**
-       * NOTE
-       * 1- Rerender -> forceRender, setForceRender
-       * 2- setContacts() -> update Contacts array with new data which is returned by api after successfull POST data 
-       */
 
       if (status === 201) {
         setContacts(prevContacts => ([...prevContacts, data]));
         setFilteredContacts(prevFilteredContacts => ([...prevFilteredContacts, data]));
         setContact({});
+        setErrors([]);
         navigate("/contacts");
       }
     } catch (error) {
+      console.log(error);
       console.log(error.message);
+      console.log(error.inner);
+      setErrors(error.inner);
     } finally {
       setLoading(false);
     }
@@ -113,23 +115,6 @@ const App = () => {
     }
   }
 
-  // const contactSearch = (event) => { 
-  //   setContactQuery(prevState => ({...prevState, text: event.target.value}));
-  //   const filteredAllContacts = contacts.filter(contact => contact.fullname.toLowerCase().includes(event.target.value.toLowerCase()));
-  //   setFilteredContacts(filteredAllContacts);
-  // }
-
-  // let filterTimeOut;
-  // const contactSearch = (query) => {
-  //   clearTimeout(filterTimeOut);  // always clear previous timeout when we insert new character in input and don't allow invoking filter based on previous character
-
-  //   if(!query) return setFilteredContacts([...contacts]); // if the query is empty, it is not neccessary to filter the contacts and create new array by invoking filter method
-
-  //   filterTimeOut = setTimeout(() => {
-  //     setFilteredContacts(contacts.filter(contact => contact.fullname.toLowerCase().includes(query.toLowerCase())))
-  //   }, 1000);
-  // }
-
   const contactSearch = _.debounce((query) => {
     if(!query) return setFilteredContacts([...contacts]);
     setFilteredContacts(contacts.filter(contact => contact.fullname.toLowerCase().includes(query.toLowerCase())));
@@ -170,6 +155,8 @@ const App = () => {
       onContactChange,
       createContact: createContactForm,
       deleteContact: confirmDelete,
+
+      errors,
     }}>
       <div className="App">
         <Navbar />

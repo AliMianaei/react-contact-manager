@@ -12,6 +12,8 @@ const AddContact = () => {
     groups,
     onContactChange,
     createContact,
+
+    errors,
   } = useContext(ContactContext);
 
   return (
@@ -55,10 +57,13 @@ const AddContact = () => {
                         type="text"
                         className="form-control"
                         placeholder="نام و نام خانوادگی"
-                        required={true}
+                        // required={true}
                         value={contact.fullname}
                         onChange={onContactChange}
                       />
+                      {errors.filter(error => error.path === 'fullname').map((error, index) => (
+                        <p key={index} className="text-danger text-end my-1">{error.message}</p>
+                      ))}
                     </div>
 
                     <div className="mb-2">
@@ -79,7 +84,7 @@ const AddContact = () => {
                         type="number"
                         className="form-control"
                         placeholder="شماره موبایل"
-                        required={true}
+                        // required={true}
                         value={contact.mobile}
                         onChange={onContactChange}
                       />
@@ -91,7 +96,7 @@ const AddContact = () => {
                         type="email"
                         className="form-control"
                         placeholder="آدرس ایمیل"
-                        required={true}
+                        // required={true}
                         value={contact.email}
                         onChange={onContactChange} 
                       />
@@ -103,7 +108,7 @@ const AddContact = () => {
                         type="text"
                         className="form-control"
                         placeholder="شغل"
-                        required={true}
+                        // required={true}
                         value={contact.job}
                         onChange={onContactChange}
                       />
@@ -113,7 +118,7 @@ const AddContact = () => {
                       <select
                         name="group"
                         className="form-control"
-                        required={true}
+                        // required={true}
                         value={contact.group}
                         onChange={onContactChange}
                       >
@@ -139,6 +144,7 @@ const AddContact = () => {
                     </div>
 
                   </form>
+                  {errors?.map((error, index) => <div key={index} className="text-danger text-end mt-2">{error.message}</div>)}
                 </div>
               </div>
             </div>
