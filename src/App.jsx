@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
+import _ from 'lodash';
 
 import { ContactContext } from './context/contactContext';
 import { createContact, deleteContact, getAllContacts, getAllGroups } from './services/contactService';
@@ -118,16 +119,21 @@ const App = () => {
   //   setFilteredContacts(filteredAllContacts);
   // }
 
-  let filterTimeOut;
-  const contactSearch = (query) => {
-    clearTimeout(filterTimeOut);  // always clear previous timeout when we insert new character in input and don't allow invoking filter based on previous character
+  // let filterTimeOut;
+  // const contactSearch = (query) => {
+  //   clearTimeout(filterTimeOut);  // always clear previous timeout when we insert new character in input and don't allow invoking filter based on previous character
 
-    if(!query) return setFilteredContacts([...contacts]); // if the query is empty, it is not neccessary to filter the contacts and create new array by invoking filter method
+  //   if(!query) return setFilteredContacts([...contacts]); // if the query is empty, it is not neccessary to filter the contacts and create new array by invoking filter method
 
-    filterTimeOut = setTimeout(() => {
-      setFilteredContacts(contacts.filter(contact => contact.fullname.toLowerCase().includes(query.toLowerCase())))
-    }, 1000);
-  }
+  //   filterTimeOut = setTimeout(() => {
+  //     setFilteredContacts(contacts.filter(contact => contact.fullname.toLowerCase().includes(query.toLowerCase())))
+  //   }, 1000);
+  // }
+
+  const contactSearch = _.debounce((query) => {
+    if(!query) return setFilteredContacts([...contacts]);
+    setFilteredContacts(contacts.filter(contact => contact.fullname.toLowerCase().includes(query.toLowerCase())));
+  }, 1000);
 
   useEffect(() => {
     const fetchData = async () => {
