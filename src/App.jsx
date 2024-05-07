@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { useImmer } from 'use-immer';
+import { Slide, ToastContainer } from 'react-toastify';
 
 import { ContactContext } from './context/contactContext';
 import { createContact, deleteContact, getAllContacts, getAllGroups } from './services/contactService';
@@ -11,6 +12,7 @@ import { AddContactFormik, Contacts, EditContactFormik, Navbar, ViewContact} fro
 
 import './App.css';
 import { confirmDelete } from './helpers/confirmDelete';
+import { errorMessage, successMessage } from './helpers/message';
 
 const App = () => {
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ const App = () => {
       const { data, status } = await createContact(values);
 
       if (status === 201) {
+        successMessage("مخاطب با موفقیت ساخته شد")
         setContacts(draft => {
           draft.push(data);
         });
@@ -71,6 +74,7 @@ const App = () => {
       setFilteredContacts(draft => draft.filter(contact => contact.id !== contactId));
 
       const { status } = await deleteContact(contactId);
+      errorMessage("مخاطب با موفقیت حذف شد")
       if (status !== 200) {
         setContacts([...contacts]);
         setFilteredContacts([...contacts]);
@@ -130,6 +134,7 @@ const App = () => {
       // errors,
     }}>
       <div className="App">
+        <ToastContainer rtl={true} position="bottom-right" theme="dark" transition={Slide} stacked />
         <Navbar />
         <Routes>
           <Route path='/' element={<Navigate to='/contacts' />} />

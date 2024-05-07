@@ -8,6 +8,7 @@ import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 import Spinner from "../Spinner";
 import { ContactContext } from "../../context/contactContext";
 import { contactShema } from "../../validations/contactValidation";
+import { infoMessage } from "../../helpers/message";
 
 const EditContactFormik = () => {
   const { contactId } = useParams();
@@ -23,6 +24,7 @@ const EditContactFormik = () => {
       const { data, status } = await updateContact(values, contactId);
 
       if (status === 200) {
+        infoMessage("مخاطب با موفقیت ویرایش شد")
         setContacts(draft => {
           const contactIndex = draft.findIndex(contact => contact.id === contactId);
           draft[contactIndex] = data;
