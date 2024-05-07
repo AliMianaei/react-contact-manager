@@ -7,7 +7,7 @@ import Spinner from "../Spinner";
 import { ORANGE, PINK } from "../../helpers/colors";
 
 const Contacts = () => {
-  const { loading, filteredContacts, deleteContact } = useContext(ContactContext);
+  const { loading, filteredContacts, deleteContact: {confirmDelete, removeContact} } = useContext(ContactContext);
 
   return (
     <>
@@ -29,7 +29,7 @@ const Contacts = () => {
         <section className="container">
           <div className="row">
             {filteredContacts.length > 0 ? filteredContacts.map((contact) => (
-              <Contact key={contact.id} contact={contact} deleteContact={() => deleteContact(contact.id, contact.fullname)} />
+              <Contact key={contact.id} contact={contact} deleteContact={() => confirmDelete(contact.id, "مخاطب", contact.fullname, removeContact)} />
             )) :
             (
               <div className="text-center py-5">

@@ -17,57 +17,22 @@ const EditContactFormik = () => {
 
   const { loading, setLoading, groups, contacts, setContacts, setFilteredContacts } = useContext(ContactContext);
 
-  // const setContactInfo = (event) => {
-  //   setContact(prevContact => ({
-  //     ...prevContact,
-  //     [event.target.name]: event.target.value,
-  //   }));
-  // }
-
-  // const submitForm = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     setLoading(true);
-  //     const { data, status } = await updateContact(contact, contactId);
-
-  //     /**
-  //      * NOTE
-  //      * 1- Rerender -> forceRender, setForceRender(true)
-  //      * 2- send request to server 
-  //      * 3- update local state -> setContacts() -> update Contacts array with new data which is returned by api after successfull PUT data (best way)
-  //      * 4- update local state before server request
-  //      */
-
-  //     if (status === 200) {
-  //       const allContacts = [...contacts];
-  //       const contactIndex = allContacts.findIndex(contact => contact.id === contactId);
-  //       if (contactIndex !== -1) {
-  //         allContacts[contactIndex] = data;
-  //         setContacts(allContacts);
-  //         setFilteredContacts(allContacts);
-  //       }
-  //       navigate("/contacts");
-  //     }
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
-
   const editContact = async (values) => {
     try {
       setLoading(true);
       const { data, status } = await updateContact(values, contactId);
 
       if (status === 200) {
-        const allContacts = [...contacts];
-        const contactIndex = allContacts.findIndex(contact => contact.id === contactId);
-        if (contactIndex !== -1) {
-          allContacts[contactIndex] = data;
-          setContacts(allContacts);
-          setFilteredContacts(allContacts);
-        }
+        setContacts(draft => {
+          const contactIndex = draft.findIndex(contact => contact.id === contactId);
+          draft[contactIndex] = data;
+        });
+
+        setFilteredContacts(draft => {
+          const contactIndex = draft.findIndex(contact => contact.id === contactId);
+          draft[contactIndex] = data;
+        });
+
         navigate("/contacts");
       }
     } catch (error) {
